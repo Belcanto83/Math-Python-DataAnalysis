@@ -1,4 +1,4 @@
-from scipy.optimize import minimize
+from scipy.optimize import minimize, differential_evolution
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -8,10 +8,10 @@ def f(x):
 
 
 x0 = 30
-# bounds=((1, 30),) # Границы поиска для функции minimize
+bounds = ((1, 30),)  # Границы поиска для функции minimize
 
-res = minimize(f, x0, method='BFGS')
-print('Result:', res)
+res_1 = minimize(f, x0, method='BFGS')
+print('Result:', res_1)
 
 # Построим график функции f(x)
 x_plt = np.arange(1, 30, 0.1)
@@ -19,3 +19,7 @@ y_plt = f(x_plt)
 plt.figure()
 plt.plot(x_plt, y_plt)
 plt.show()
+
+# Применим дифференциальную эволюцию для поиска глобального минимума ф-ции
+res_2 = differential_evolution(f, bounds=bounds)
+print('Result:', res_2)
